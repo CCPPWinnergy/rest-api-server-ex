@@ -21,6 +21,19 @@ const dbConfig = {
 // ตั้งค่า PostgreSQL
 const pool = new Pool(dbConfig);
 
+// Home route
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'CCPP REST API Server is running!',
+    endpoints: {
+      main: '/api',
+      employees: '/employees',
+      salesOpportunities: '/sales-opportunities',
+      painPoints: '/pain-points'
+    }
+  });
+});
+
 // 1. Employee Data API
 app.get('/employees', async (req, res) => {
   const SQL_QUERY = `
