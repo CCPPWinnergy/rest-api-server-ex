@@ -71,6 +71,7 @@ app.get('/sales-opportunities', async (req, res) => {
         o.probability,
         o.expected_closing,
         sta.name AS stage_name
+
     FROM ccpp_crm_opt AS o
     LEFT JOIN res_partner AS p
            ON p.id = o.customer_id
@@ -163,7 +164,9 @@ app.get('/api', async (req, res) => {
           o.expected_revenue,
           o.probability,
           o.expected_closing,
+          o.create_date,
           sta.name AS stage_name
+
       FROM ccpp_crm_opt AS o
       LEFT JOIN res_partner AS p
              ON p.id = o.customer_id
@@ -250,7 +253,7 @@ app.get('/api', async (req, res) => {
     const opportunityData = salesResult.rows.map(row => ({
       'Completed': 0,
       'Customer': row.customer || '',
-      'Date': null,
+      'Date': row.create_date || '',
       'Note': row.subject || '',
       'Department': row.dep_name || '',
       'Expected Closing': row.expected_closing,
